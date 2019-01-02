@@ -1,36 +1,46 @@
 package action;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import dao.GoddessDao;
 import model.Goddess;
 
 public class GoddessAction {
 
-	public static void main(String[] args) throws Exception {
-
-		GoddessDao g = new GoddessDao();
-		Goddess g1 = new Goddess();
-//		List<Goddess> gs = g.query();
-		
-//		for(Goddess goddess : gs) {
-//			System.out.println(goddess.getUser_name() + "," + goddess.getAge());
-//		}
-		g1.setUser_name("Ð¡ÏÄ");
-		g1.setAge(21);
-		g1.setSex(1);
-		g1.setBirthday(new Date());
-		g1.setEmail("xiaoxia@imooc.com");
-		g1.setMobile("15899666654");
-		g1.setCreate_user("htmboy");
-		g1.setUpdate_user("admin");
-		g1.setIsdel(1);
-		g1.setId(3);
-//		g.updateGoddess(g1);
-//		g.delGoddess(3);
-		Goddess g2 = g.query("Ð¡Ïª");
-		System.out.println(g2.toString());
-//		g.addGoddess(g1);
+	public void add(Goddess goddess) throws Exception{
+		GoddessDao dao=new GoddessDao();
+		goddess.setSex(1);
+		goddess.setCreate_user("ADMIN");
+		goddess.setUpdate_user("ADMIN");
+		goddess.setIsdel(0);
+		dao.addGoddess(goddess);
 	}
-
+	
+	public Goddess get(Integer id) throws SQLException{
+		GoddessDao dao=new GoddessDao();
+		return dao.get(id);
+	}
+	
+	public void edit(Goddess goddess) throws Exception{
+		GoddessDao dao=new GoddessDao();
+		dao.updateGoddess(goddess);
+	}
+	public void del(Integer id) throws Exception{
+		GoddessDao dao=new GoddessDao();
+		dao.delGoddess(id);
+	}
+	
+	public List<Goddess>  query() throws Exception{
+		GoddessDao dao=new GoddessDao();
+		return dao.query();
+	}
+	public List<Goddess> query(List<Map<String, Object>> params) throws Exception{
+		GoddessDao dao=new GoddessDao();
+		return dao.query(params);
+	}
 }
